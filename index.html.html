@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GERNEL KNOWLEDGE QUIZ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #quiz-container {
+            max-width: 800px;
+            margin:auto;
+            padding: 100px;
+            border: 5px solid #000000;
+            border-radius: 50px;
+            box-shadow: 2px 2px 10px rgba(6, 3, 3, 0.1);
+            background-color: #9CB49C;
+        }
+        .option {
+            display:block;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #a538a5;
+            border: 1px solid #000000;
+            cursor: pointer;
+        }
+        .option:hover {
+            background-color: #743d3d;
+        }
+        #next-btn {
+            margin-top: 20px;
+            padding: 10px;
+            cursor: pointer;
+            background-color: rgb(0, 0, 0);
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1> Quiz</h1>
+    <div id="quiz-container">
+        <h1 id="question"></h1>
+        <div id="options"></div>
+        <button id="next-btn">Next</button>
+    </div>
+
+    <script>
+        // Quiz Questions
+        const quizData = [
+            {
+                question: "Which river is the longest in the world?",
+                options: ["Amazon", "Mississippi", "Nile", "Yangtze"],
+                answer: "Nile"
+            },
+            {
+                question: "What animal is the national symbol of Australia?",
+                options: ["Koala", "Kangaroo", "Emu", "Crocodile"],
+                answer: "Kangaroo"
+            },
+            {
+                question: "Which one of the following countries is not in Africa?",
+                options: ["Morocco", "Sudan", "Yemen", "Algeria"],
+                answer: "Yemen"
+            },
+            {
+                question: " Which county is the biggest grower of coffee?",
+                options: ["Spain", "India", "Brazil", "Ethiopia"],
+                answer: "Brazil"
+            },
+            {
+                question: " How many bones are in the body of an adult human?",
+                options: ["330", "206", "250", "210"],
+                answer: "206"
+                
+            
+            },
+            {
+                question: "  What element is the main constituent of diamonds?",
+                options: ["Carbon", "Oxygen", "Silver", "Gold"],
+                answer: "Carbon"
+                
+            
+            },
+            
+            
+
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const questionElement = document.getElementById("question");
+        const optionsElement = document.getElementById("options");
+        const nextButton = document.getElementById("next-btn");
+
+        function loadQuestion() {
+            let currentQuestion = quizData[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+            optionsElement.innerHTML = "";
+
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.classList.add("option");
+                button.addEventListener("click", () => checkAnswer(option));
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedOption) {
+            let correctAnswer = quizData[currentQuestionIndex].answer;
+            if (selectedOption === correctAnswer) {
+                score++;
+                alert("Correct!");
+            } else {
+                alert(`Wrong! The correct answer was ${correctAnswer}.`);
+            }
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            questionElement.textContent = `Quiz Completed! Your score: ${score}/${quizData.length}`;
+            optionsElement.innerHTML = "";
+            nextButton.style.display = "none";
+        }
+
+        nextButton.style.display = "none"; // Hide Next button (not needed)
+        loadQuestion();
+    </script>
+
+</body>
+</html>
